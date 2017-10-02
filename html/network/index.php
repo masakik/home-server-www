@@ -1,7 +1,7 @@
 <?php
 $data = [];
 if (($handle = fopen("/var/tmp/fing.network", "r")) !== FALSE) {
-    while (($data[] = fgetcsv($handle, 1000, ",")) !== FALSE) {
+    while (($data[] = fgetcsv($handle, 1000, ";")) !== FALSE) {
         //$num = count($data);
     }
     fclose($handle);
