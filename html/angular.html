@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=yes">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+
+    <script>
+        angular.module('DemoApp', [])
+            .controller('DemoController', function ($scope,$http) {
+                $scope.message = "Hello World";
+
+                $http({
+                    method: "GET",
+                    url: "system/network.json"
+                }).then(function mySuccess(response) {
+                    $scope.network = response.data;
+                    console.log(response);
+                }, function myError(response) {
+                    $scope.network = response.statusText;
+                    console.log(response);
+                });
+
+            });
+
+    </script>
+
+</head>
+<body ng-app="DemoApp" ng-controller="DemoController">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10"></div>
+        <div class="col-md-1"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            col 2
+        </div>
+        <div class="col-md-7">
+            <h1>Main Title</h1>
+            <h2>Sub title</h2>
+            {{message}} <br/>
+            Sistema: {{sistema}}
+        </div>
+        <div class="col-md-3">
+            col 3
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
