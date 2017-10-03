@@ -12,7 +12,7 @@ echo json_encode($x);exit;
 
 
 
-$j = file_get_contents('/var/tmp/network.json');
+$j = file_get_contents('/var/tmp/fing.network');
 $json = str_replace("'",'"',$j);
 $json = str_replace(",}",'}',$json);
 $json = str_replace(",]",']',$json);
