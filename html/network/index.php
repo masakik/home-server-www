@@ -6,7 +6,7 @@ if (isset($_GET['f']) and $_GET['f'] == 'up') {
 $data = [];
 $labels = ['datetime', 'state', 'ip', 'field', 'host', 'mac', 'vendor'];
 
-$x = simplexml_load_file('/var/tmp/log.xml');
+$x = simplexml_load_file('/var/tmp/fing.network');
 //print_r($x);
 echo json_encode($x);exit;
 
