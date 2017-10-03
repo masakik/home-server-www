@@ -11,19 +11,24 @@
 
     <script>
         angular.module('DemoApp', [])
-            .controller('DemoController', function ($scope,$http) {
+            .controller('DemoController', function ($scope, $http) {
                 $scope.message = "Hello World";
 
                 $http({
                     method: "GET",
-                    url: "system/network.json"
+                    url: "network/"
                 }).then(function mySuccess(response) {
                     $scope.network = response.data;
-                    console.log(response);
+                    console.log($scope.network);
                 }, function myError(response) {
                     $scope.network = response.statusText;
                     console.log(response);
                 });
+
+                $scope.ipOrder = function(row){
+                    var octet = row.ip.split('.');
+                    return parseInt(octet[3]);
+                }
 
             });
 
@@ -43,13 +48,19 @@
         <div class="col-md-2">
             col 2
         </div>
-        <div class="col-md-7">
+        <div class="col-md-8">
             <h1>Main Title</h1>
             <h2>Sub title</h2>
             {{message}} <br/>
             Sistema: {{sistema}}
+
+            <table>
+                <tr ng-repeat="item in network.Hosts.Host">
+                    <td ng-repeat="field in item">{{field}}</td>
+                </tr>
+            </table>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             col 3
         </div>
     </div>
