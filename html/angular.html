@@ -25,7 +25,7 @@
                     console.log(response);
                 });
 
-                $scope.ipOrder = function(row){
+                $scope.ipOrder = function (row) {
                     var octet = row.ip.split('.');
                     return parseInt(octet[3]);
                 }
@@ -53,8 +53,18 @@
             <h2>Sub title</h2>
             {{message}} <br/>
             Sistema: {{sistema}}
+            <div>Rede: {{network.NetworkAddress}} | {{network.NetworkFamily}} | {{network.NetworkBearer}}</div>
 
-            <table>
+            <div>Hosts</div>
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Hostname</th>
+                    <th>HW_ADDR</th>
+                    <th>IP_ADDR</th>
+                    <th>Vendor</th>
+                    <th>State</th>
+                </tr>
                 <tr ng-repeat="item in network.Hosts.Host">
                     <td ng-repeat="field in item">{{field}}</td>
                 </tr>
