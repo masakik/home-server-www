@@ -56,7 +56,7 @@
             <div>Rede: {{network.NetworkAddress}} | {{network.NetworkFamily}} | {{network.NetworkBearer}}</div>
 
             <div>Hosts: {{network.Hosts.Host.length}}</div>
-            <table class="table">
+            <table class="table table-condensed table-striped table-bordered">
                 <tr>
                     <th>Name</th>
                     <th>Hostname</th>
@@ -64,6 +64,7 @@
                     <th>IP_ADDR</th>
                     <th>Vendor</th>
                     <th>State</th>
+                    <th>Time</th>
                 </tr>
                 <tr ng-repeat="item in network.Hosts.Host">
                     <td ng-repeat="field in item">{{field}}</td>
