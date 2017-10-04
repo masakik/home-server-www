@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8">
     <meta name="viewport"
@@ -24,6 +24,18 @@
                     $scope.network = response.statusText;
                     console.log(response);
                 });
+
+                $http({
+                    method: "GET",
+                    url: "system/"
+                }).then(function mySuccess(response) {
+                    $scope.system = response.data;
+                    console.log($scope.system);
+                }, function myError(response) {
+                    $scope.system = response.statusText;
+                    console.log(response);
+                });
+
 
                 $scope.ipOrder = function (row) {
                     var octet = row.ip.split('.');
@@ -52,11 +64,13 @@
             <h1>Main Title</h1>
             <h2>Sub title</h2>
             {{message}} <br/>
-            Sistema: {{sistema}}
+            Sistema: {{system.OS}}<br />
+            Temp: {{system.CpuTemp}}<br />
+            Disk: {{system.DiskUsage}} of {{system.DiskTotal}}
             <div>Rede: {{network.NetworkAddress}} | {{network.NetworkFamily}} | {{network.NetworkBearer}}</div>
 
-            <div>Hosts: {{network.Hosts.Host.length}}</div>
-            <table class="table table-condensed table-striped table-bordered">
+            <div>Hosts: {{network.Hosts.Host.length}} - {{filtered_up.length}} up, {{filtered_down.length}} down</div>
+            <table class="table table-sm table-striped table-bordered">
                 <tr>
                     <th>Name</th>
                     <th>Hostname</th>
@@ -66,8 +80,35 @@
                     <th>State</th>
                     <th>Time</th>
                 </tr>
-                <tr ng-repeat="item in network.Hosts.Host">
-                    <td ng-repeat="field in item">{{field}}</td>
+                <tr ng-repeat="host in network.Hosts.Host|filter:'Up' as filtered_up">
+                    <td ng-class="bg-danger" >{{host.Name}}</td>
+                    <td>{{host.Hostname}}</td>
+                    <td>{{host.HardwareAddress}}</td>
+                    <td>{{host.Address}}</td>
+                    <td>{{host.Vendor}}</td>
+                    <td>{{host.State}}</td>
+                    <td>{{host.LastChangeTime}}</td>
+                </tr>
+            </table>
+
+            <table class="table table-sm table-striped table-bordered">
+                <tr>
+                    <th>Name</th>
+                    <th>Hostname</th>
+                    <th>HW_ADDR</th>
+                    <th>IP_ADDR</th>
+                    <th>Vendor</th>
+                    <th>State</th>
+                    <th>Time</th>
+                </tr>
+                <tr ng-repeat="host in network.Hosts.Host|filter:'Down' as filtered_down">
+                    <td ng-class="bg-danger" >{{host.Name}}</td>
+                    <td>{{host.Hostname}}</td>
+                    <td>{{host.HardwareAddress}}</td>
+                    <td>{{host.Address}}</td>
+                    <td>{{host.Vendor}}</td>
+                    <td>{{host.State}}</td>
+                    <td>{{host.LastChangeTime}}</td>
                 </tr>
             </table>
         </div>

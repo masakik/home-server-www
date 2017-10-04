@@ -1,8 +1,18 @@
 <?php
 exec('cat /sys/class/thermal/thermal_zone0/temp', $ret);
-$t1 = round($ret[0] / 1000, 1);
+$data['CpuTemp'] = round($ret[0] / 1000, 1);
+
+$data['OS'] = exec('uname -a', $ret);
+
+$data['DiskUsage'] = exec('df / --output=used -h|grep -v "Used" ', $ret);
+$data['DiskTotal'] = exec('df / --output=size -h|grep -v "Used" ', $ret);
+
+
+echo json_encode($data);exit;
+
+
 unset($ret);
-exec('uname -a', $ret);
+
 $uname = $ret[0];
 
 ?>
