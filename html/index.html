@@ -64,8 +64,9 @@
         <div class="col-md-12">
             <h2>Rede</h2>
             <div>Rede: {{network.NetworkAddress}} | {{network.NetworkFamily}} | {{network.NetworkBearer}}</div>
-
             <div>Hosts: {{network.Hosts.Host.length}} - {{filtered_up.length}} up, {{filtered_down.length}} down</div>
+            <div>Last update: {{network.mtime}}</div>
+
             <table class="table table-sm table-striped table-bordered">
                 <tr>
                     <th>Name</th>
