@@ -12,7 +12,6 @@
     <script>
         angular.module('DemoApp', [])
             .controller('DemoController', function ($scope, $http) {
-                $scope.message = "Hello World";
 
                 $http({
                     method: "GET",
@@ -35,13 +34,6 @@
                     $scope.system = response.statusText;
                     console.log(response);
                 });
-
-
-                $scope.ipOrder = function (row) {
-                    var octet = row.ip.split('.');
-                    return parseInt(octet[3]);
-                }
-
             });
 
     </script>
