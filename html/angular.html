@@ -99,7 +99,7 @@
                     <th>IP_ADDR</th>
                     <th>Vendor</th>
                     <th>State</th>
-                    <th>Time</th>
+                 <!--   <th>Time</th>-->
                 </tr>
                 <tr ng-repeat="host in network.Hosts.Host|filter:'Down' as filtered_down">
                     <td ng-class="bg-danger" >{{host.Name}}</td>
@@ -108,7 +108,7 @@
                     <td>{{host.Address}}</td>
                     <td>{{host.Vendor}}</td>
                     <td>{{host.State}}</td>
-                    <td>{{host.LastChangeTime}}</td>
+                   <!-- <td>{{host.LastChangeTime}}</td>-->
                 </tr>
             </table>
         </div>
