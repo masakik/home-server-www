@@ -1,5 +1,10 @@
 <?php
 
+require '../../lib/redbean-php/rb.php';
+R::setup('sqlite:../../data/website.db');
+//R::setup('sqlite:/tmp/website.db');
+//R::setup();
+
 $x = simplexml_load_file('/var/tmp/fing.network');
 $x->mtime = date("d-m-Y H:i:s", filemtime('/var/tmp/fing.network'));
 
@@ -14,34 +19,40 @@ foreach ($x->Hosts->Host as $host) {
 
 function getvendor($mac)
 {
-    $url = "http://api.macvendors.com/" . urlencode($mac);
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $response = curl_exec($ch);
-    if ($response) {
-        return $response;
+    if($r = R::findOne('vendor','mac=?',[ $mac ])) {
+        return $r->vendor;
     } else {
-        return '-- not found --';
+        $url = "http://api.macvendors.com/" . urlencode($mac);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        if ($response) {
+            $r = R::dispense('vendor');
+            $r->mac = $mac;
+            $r->vendor = $response;
+            R::store($r);
+            return $response;
+        } else {
+            return '-- not found --';
+        }
     }
+
+
 }
 
-function write_cache($config_data) {
+function write_cache($config_file , $config_data) {
     $config_file = '../../data/mac_vendor_cache.txt';
     $new_content = '';
-    foreach ($config_data as $section => $section_content) {
-        $section_content = array_map(function($value, $key) {
-            return "$key=$value";
-        }, array_values($section_content), array_keys($section_content));
-        $section_content = implode("\n", $section_content);
-        $new_content .= "[$section]\n$section_content\n";
+    foreach ($config_data as $key => $val) {
+        $new_content .= $key.'='.$val."\n";
     }
     file_put_contents($config_file, $new_content);
 }
 
 
 
-
+write_cache('../../data/mac_vendor_cache.txt', $mac_array);
 
 echo 'ok';
 print_r($mac_array);
