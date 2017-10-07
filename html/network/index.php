@@ -12,7 +12,7 @@ foreach ($x->Hosts->Host as $host) {
     if ($host->Vendor == '') {
         $mac = substr($host->HardwareAddress,0,2).substr($host->HardwareAddress,3,2).substr($host->HardwareAddress,6,2);
         $host->Vendor = getvendor($mac);
-        $mac_array[$mac] = (string) $host->Vendor;
+        //$mac_array[$mac] = (string) $host->Vendor;
     }
 
 }
@@ -52,11 +52,11 @@ function write_cache($config_file , $config_data) {
 
 
 
-write_cache('../../data/mac_vendor_cache.txt', $mac_array);
+//write_cache('../../data/mac_vendor_cache.txt', $mac_array);
 
-echo 'ok';
-print_r($mac_array);
-echo serialize($mac_array);exit;
+//echo 'ok';
+//print_r($mac_array);
+//echo serialize($mac_array);exit;
 /*print_r($x);
 exit;*/
 
