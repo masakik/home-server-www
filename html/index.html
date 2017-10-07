@@ -66,17 +66,16 @@
                     <th>Hostname</th>
                     <th>HW_ADDR</th>
                     <th>IP_ADDR</th>
-                    <th>Vendor</th>
-                    <th>State</th>
+                    
+                    
                     <!--       <th>Time</th>-->
                 </tr>
                 <tr ng-repeat="host in network.Hosts.Host|filter:'Up' as filtered_up">
                     <td ng-class="bg-danger">{{host.Name}}</td>
-                    <td>{{host.Hostname}}</td>
-                    <td>{{host.HardwareAddress}}</td>
-                    <td>{{host.Address}}</td>
-                    <td>{{host.Vendor}}</td>
-                    <td>{{host.State}}</td>
+                    <td class="h4">{{host.Hostname}}</td>
+                   <td><span class="small">{{host.HardwareAddress}}</span></td>
+                    <td><span class="small">{{host.Address}} - {{(host.Vendor|limitTo:20) + (host.Vendor.length > 20 ? '...' : '')}}</span></td>
+                   
                     <!--   <td>{{host.LastChangeTime}}</td>-->
                 </tr>
             </table>
